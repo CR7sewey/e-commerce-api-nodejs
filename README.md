@@ -24,3 +24,13 @@
 
 #### 404 vs ErrorHandler Middleware
 - [] Order is important, if otherwise, we would obtain a wrong error for worng routes; The errorHandler only is activvated when we have an existing route!
+
+#### Morgan Pacakge
+
+- [Morgan Package](https://www.npmjs.com/package/morgan)
+
+#### User Model
+
+- [] create models folder and User.js file
+- [] create schema with name,email, password (all type:String)
+- [] export mongoose model
