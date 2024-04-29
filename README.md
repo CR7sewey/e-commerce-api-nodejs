@@ -23,3 +23,4 @@
 - [] import 'exress-async-errors' package
 
 #### 404 vs ErrorHandler Middleware
+- [] Order is important, if otherwise, we would obtain a wrong error for worng routes; The errorHandler only is activvated when we have an existing route!

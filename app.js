@@ -1,12 +1,20 @@
-const express = require("express");
-const app = express();
-const errorHandlerMiddleware = require("./middlewares/error-handler");
-const notFound = require("./middlewares/not-found");
-const dbConnection = require("./db/connect");
 require("express-async-errors");
 require("dotenv").config();
 
+// express
+const express = require("express");
+const app = express();
+
+// packages
+const morgan = require("morgan");
+
 // Middlewares
+const errorHandlerMiddleware = require("./middlewares/error-handler");
+const notFound = require("./middlewares/not-found");
+const dbConnection = require("./db/connect");
+
+// Middlewares
+app.use(morgan("tiny")); // to check routes and http codes
 app.use(express.json()); // access to json data in req.body
 
 app.get("/", (req, res) => {
