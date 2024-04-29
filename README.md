@@ -34,3 +34,23 @@
 - [] create models folder and User.js file
 - [] create schema with name,email, password (all type:String)
 - [] export mongoose model
+
+#### Validator Package
+
+- [Validator](https://www.npmjs.com/package/validator)
+
+#### Auth Routes Structure
+
+- [] create controllers folder
+- [] add authController file
+- [] export (register,login,logout) functions
+- [] res.send('some string value')
+- [] create routes folder
+- [] setup authRoutes file
+- [] import all controllers
+- [] setup three routes
+- [] post('/register') post('/login') get('/logout')
+- [] import authRoutes as authRouter in the app.js
+- [] setup app.use('/api/v1/auth', authRouter)
+
+#### Test Routes in Postman
