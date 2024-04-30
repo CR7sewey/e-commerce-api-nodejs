@@ -58,7 +58,7 @@ UserSchema.path("email").validate(
   validatorFunction,
   `Email ${value} is not valid`,
   "Invalid email"
-);/*
+);*/
 
 UserSchema.methods.validatePassword = async function validatePassword(pass) {
   return await bcrypt.compare(this.password, pass);
