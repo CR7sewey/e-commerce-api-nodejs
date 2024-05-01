@@ -7,6 +7,7 @@ const app = express();
 
 // packages
 const morgan = require("morgan");
+//let cookie_parser = require("cookie-parser");
 
 // ROUTERS
 const routerAuth = require("./routes/authRoutes");

@@ -18,7 +18,14 @@ const register = async (req, res) => {
   const user = await User.create({ name, email, password, role }); // not ...req.body to not pass directly the role if inserted in postman!
   const userToken = { name, id: user._id, role: user.role };
   const token = generateToken({ user: userToken });
-  return res.status(StatusCodes.CREATED).json({ user: userToken, token });
+
+  // see doc
+  res.cookie("token", token, {
+    httpOnly: true,
+    expires: new Date(Date.now() + 24 * 3600000), // 24 hours = 24 x 60 minutes x 60 seconds x 1000 (bcs in milis)
+  });
+
+  return res.status(StatusCodes.CREATED).json({ user: userToken });
 };
 
 const login = async (req, res) => {
