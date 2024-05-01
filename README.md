@@ -54,3 +54,17 @@
 - [] setup app.use('/api/v1/auth', authRouter)
 
 #### Test Routes in Postman
+
+#### Register Controller
+
+- [] create user
+- [] send response with entire user (only while testing)
+- [] check if email already in use (schema and controller)
+- [] ignore 'role'
+- [] alternative 'admin' setup
+
+#### Handle Password
+
+- [] UserSchema.pre('save') - hook
+- bcrypt.genSalt - number of rounds
+- bcrypt.hash
