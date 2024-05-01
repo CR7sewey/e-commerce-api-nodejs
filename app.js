@@ -7,7 +7,7 @@ const app = express();
 
 // packages
 const morgan = require("morgan");
-//let cookie_parser = require("cookie-parser");
+const cookie_parser = require("cookie-parser");
 
 // ROUTERS
 const routerAuth = require("./routes/authRoutes");
@@ -20,12 +20,13 @@ const dbConnection = require("./db/connect");
 // Middlewares
 app.use(morgan("tiny")); // to check routes and http codes
 app.use(express.json()); // access to json data in req.body
-
+app.use(cookie_parser(process.env.COOKIE_SECRET_KEY));
 //
 
 app.use("/api/v1/auth", routerAuth);
 
 app.get("/", (req, res) => {
+  console.log(req.cookies);
   res.send("E-commerce Project");
 });
 
