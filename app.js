@@ -11,10 +11,12 @@ const cookie_parser = require("cookie-parser");
 
 // ROUTERS
 const routerAuth = require("./routes/authRoutes");
+const routerUser = require("./routes/userRoutes");
 
 // Middlewares
 const errorHandlerMiddleware = require("./middlewares/error-handler");
 const notFound = require("./middlewares/not-found");
+const tokenExists = require("./middlewares/authentication");
 const dbConnection = require("./db/connect");
 
 // Middlewares
@@ -24,6 +26,7 @@ app.use(cookie_parser(process.env.COOKIE_SECRET_KEY));
 //
 
 app.use("/api/v1/auth", routerAuth);
+app.use("/api/v1/users", tokenExists, routerUser);
 
 app.get("/", (req, res) => {
   res.send("E-commerce Project");

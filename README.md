@@ -103,3 +103,15 @@
 - Basically, the main diference in the frontend btw saving the token or using cookies is that when using cookies, you don't need to provide in the frontend the token to access the route, the cookie is directly transmited through the browser to the backend. When doing only jwt auth, in the frontend we usually do something like: localStorage.setItem("token", data.token); or get or even remove (localStorage.removeItem("token")). With cookies, this process is in charge of the backend, so the front don't have to do this work, bcs who rules the token in the cookies is the back (transmited directly through the network)
 - In summary, or not, when using cookies, if you look at the local storage we don't have anything, bcs we dont need to do it in the front. That's also the advantge of it bcs you cant access it through the client side. However, it has a size limit!
 - another note: cookies can only be resent to the same domain, which means if we are wornking with for example a create-react-app we are in a !== domain. For that, first enable cors to allow, then configurate the proxy (on frontend! with the server domain).
+
+#### User Routes Structure
+
+- [] add userController file
+- [] export (getAllUsers,getSingleUser,showCurrentUser,updateUser,updateUserPassword) functions
+- [] res.send('some string value')
+- [] setup userRoutes file
+- [] import all controllers
+- [] setup just one route - router.route('/').get(getAllUsers);
+- [] import userRoutes as routerUser in the app.js
+- [] import tokenExists middleware in the app.js
+- [] setup app.use('/api/v1/users', tokenExists, routerUser)
