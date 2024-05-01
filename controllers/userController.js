@@ -6,19 +6,19 @@ const NotFound = require("../errors/not-found");
 const UnauthenticatedError = require("../errors/unauthenticated");
 
 const getAllUsers = async (req, res) => {
-  const actualUser = req.user;
-  if (actualUser.role !== "admin") {
+  //const actualUser = req.user;
+  /*if (actualUser.role !== "admin") {
     throw new BadRequest("You are not authorized to access this route.");
-  }
+  }*/
   const users = await User.find({ role: "user" }).select("-password");
   return res.status(StatusCodes.OK).json({ users });
 };
 
 const getSingleUser = async (req, res) => {
-  const actualUser = req.user;
+  /*const actualUser = req.user;
   if (actualUser.role !== "admin") {
     throw new BadRequest("You are not authorized to access this route.");
-  }
+  }*/
   const { id } = req.params;
   const user = await User.findOne({ role: "user", _id: id }).select(
     "-password"

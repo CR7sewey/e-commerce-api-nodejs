@@ -7,11 +7,15 @@ const {
   updateUser,
   updateUserPassword,
 } = require("../controllers/userController");
+const {
+  tokenExists,
+  authorizePermissions,
+} = require("../middlewares/authentication");
 
-router.get("/", getAllUsers);
-router.get("/showMe", showCurrentUser);
-router.get("/:id", getSingleUser);
-router.post("/updateUser", updateUser);
-router.post("/updateUserPassword", updateUserPassword);
+router.get("/", tokenExists, authorizePermissions, getAllUsers);
+router.get("/showMe", tokenExists, showCurrentUser);
+router.post("/updateUser", tokenExists, updateUser);
+router.post("/updateUserPassword", tokenExists, updateUserPassword);
+router.get("/:id", tokenExists, getSingleUser);
 
 module.exports = router;
