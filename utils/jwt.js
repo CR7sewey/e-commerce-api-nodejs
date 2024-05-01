@@ -10,4 +10,12 @@ const generateToken = ({ user }) => {
 const verifyToken = ({ token }) =>
   jwt.verify(token, process.env.TOKEN_SECRET_KEY);
 
-module.exports = { generateToken, verifyToken };
+const attachCookiesToResponse = ({ res, token }) => {
+  // see doc
+  res.cookie("token", token, {
+    httpOnly: true,
+    expires: new Date(Date.now() + 24 * 3600000), // 24 hours = 24 x 60 minutes x 60 seconds x 1000 (bcs in milis)
+  });
+};
+
+module.exports = { generateToken, verifyToken, attachCookiesToResponse };

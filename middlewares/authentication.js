@@ -1,26 +1,23 @@
 const jwt = require("jsonwebtoken");
 const UnauthenticatedError = require("../errors/unauthenticated");
 const User = require("../models/User");
-const { verifyToken } = require("../utils/jwt");
+const { verifyToken, attachCookiesToResponse } = require("../utils/jwt");
 require("dotenv").config();
 
 const tokenExists = async (req, res, next) => {
   let token = req.signedCookies.token;
   if (!token) {
     const authorization = req.headers.authorization;
-    token = authorization.split(" ")[1];
-    if (!authorization && token.startsWith("Bearer")) {
+    if (!authorization) {
       res.setHeader("WWW-Authenticate", "Basic");
       throw new UnauthenticatedError("You need to log in to access this page!");
     }
-    if (token === "null") {
+    token = authorization.split(" ")[1];
+    if (token === null || !token || token === undefined) {
       res.setHeader("WWW-Authenticate", "Basic");
       throw new UnauthenticatedError("You need to log in to access this page!"); // noy logged in
     }
-    res.cookie("token", token, {
-      httpOnly: true,
-      expires: new Date(Date.now() + 24 * 3600000), // 24 hours = 24 x 60 minutes x 60 seconds x 1000 (bcs in milis)
-    });
+    attachCookiesToResponse({ res, token });
   }
 
   try {

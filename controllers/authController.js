@@ -1,7 +1,7 @@
 const User = require("../models/User");
 const { StatusCodes } = require("http-status-codes");
 const BadRequest = require("../errors/bad-request");
-const { generateToken } = require("../utils/jwt");
+const { generateToken, attachCookiesToResponse } = require("../utils/jwt");
 
 const register = async (req, res) => {
   const { name, email, password } = req.body;
@@ -17,13 +17,9 @@ const register = async (req, res) => {
 
   const user = await User.create({ name, email, password, role }); // not ...req.body to not pass directly the role if inserted in postman!
   const userToken = { name, id: user._id, role: user.role };
-  const token = generateToken({ user: userToken });
 
-  // see doc
-  res.cookie("token", token, {
-    httpOnly: true,
-    expires: new Date(Date.now() + 24 * 3600000), // 24 hours = 24 x 60 minutes x 60 seconds x 1000 (bcs in milis)
-  });
+  const token = generateToken({ user: userToken });
+  attachCookiesToResponse({ res, token });
 
   return res.status(StatusCodes.CREATED).json({ user: userToken });
 };
