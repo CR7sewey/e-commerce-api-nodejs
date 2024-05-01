@@ -22,7 +22,7 @@ const tokenExists = async (req, res, next) => {
 
   try {
     const dados = verifyToken({ token });
-    const user = await User.findOnde({
+    const user = await User.findOne({
       _id: dados.id,
       name: dados.name,
       role: dados.role,

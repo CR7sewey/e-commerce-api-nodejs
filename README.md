@@ -90,3 +90,8 @@
 - [] check password, if does not match return 401
 - [] if everything is correct, attach cookie
   and send back the same response as in register
+
+#### Logout Route
+
+- [] set token cookie equal to some string value
+- [] set expires:new Date(Date.now())

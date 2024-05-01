@@ -11,6 +11,6 @@ router.post(
   register
 );
 router.post("/login", login);
-router.get("/logout", logout); // needs tokenMiddleware!
+router.get("/logout", tokenExists, logout); // needs tokenMiddleware!
 
 module.exports = router;
