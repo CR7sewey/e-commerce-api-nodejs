@@ -18,6 +18,7 @@ const notFound = require("./middlewares/not-found");
 const dbConnection = require("./db/connect");
 
 // Middlewares
+app.use(express.static("./front-end"));
 app.use(morgan("tiny")); // to check routes and http codes
 app.use(express.json()); // access to json data in req.body
 app.use(cookie_parser(process.env.COOKIE_SECRET_KEY));
@@ -26,6 +27,11 @@ app.use(cookie_parser(process.env.COOKIE_SECRET_KEY));
 app.use("/api/v1/auth", routerAuth);
 
 app.get("/", (req, res) => {
+  res.send("E-commerce Project");
+});
+
+app.get("/api/v1", (req, res) => {
+  console.log(req.signedCookies);
   res.send("E-commerce Project");
 });
 
