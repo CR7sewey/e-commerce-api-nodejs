@@ -16,7 +16,9 @@ const register = async (req, res) => {
 
   const user = await User.create({ name, email, password, role }); // not ...req.body to not pass directly the role if inserted in postman!
   const token = user.generateToken();
-  return res.status(StatusCodes.CREATED).json({ user, token });
+  return res
+    .status(StatusCodes.CREATED)
+    .json({ user: { name, id: user._id, role: user.role }, token });
 };
 
 const login = async (req, res) => {

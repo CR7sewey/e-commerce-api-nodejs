@@ -66,7 +66,7 @@ UserSchema.methods.validatePassword = async function validatePassword(pass) {
 
 UserSchema.methods.generateToken = function generateToken() {
   const token = jwt.sign(
-    { id: this._id, email: this.email },
+    { id: this._id, role: this.role, name: this.name },
     process.env.TOKEN_SECRET_KEY,
     {
       expiresIn: process.env.JWT_LIFETIME,
