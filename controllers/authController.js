@@ -1,6 +1,7 @@
 const User = require("../models/User");
 const { StatusCodes } = require("http-status-codes");
 const BadRequest = require("../errors/bad-request");
+const UnauthenticatedError = require("../errors/unauthenticated");
 const { generateToken, attachCookiesToResponse } = require("../utils/jwt");
 
 const register = async (req, res) => {
@@ -25,7 +26,29 @@ const register = async (req, res) => {
 };
 
 const login = async (req, res) => {
-  return res.send("Login");
+  const { email, password } = req.body;
+  if (!email) {
+    throw new BadRequest("You need to provide an email.");
+  }
+  if (!password) {
+    throw new BadRequest("You need to provide a password.");
+  }
+  const user = await User.findOne({ email });
+  if (!user) {
+    // double check!
+    throw new UnauthenticatedError("Invalid Credentials!");
+  }
+  const validPassword = await user.validatePassword(password);
+  if (!validPassword) {
+    throw new UnauthenticatedError("Invalid Credentials!");
+  }
+
+  const userToken = { name: user.name, id: user._id, role: user.role };
+
+  const token = generateToken({ user: userToken });
+  attachCookiesToResponse({ res, token });
+
+  return res.status(StatusCodes.OK).json({ user: userToken });
 };
 
 const logout = async (req, res) => {

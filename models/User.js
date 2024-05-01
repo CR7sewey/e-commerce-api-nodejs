@@ -61,7 +61,7 @@ UserSchema.path("email").validate(
 );*/
 
 UserSchema.methods.validatePassword = async function validatePassword(pass) {
-  return await bcrypt.compare(this.password, pass);
+  return await bcrypt.compare(pass, this.password);
 };
 
 UserSchema.methods.generateToken = function generateToken() {
