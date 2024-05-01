@@ -43,6 +43,7 @@ const tokenExists = async (req, res, next) => {
 const authorizePermissions = (...roles) => {
   console.log(roles);
   return async (req, res, next) => {
+    // needs to be like this (return a function) bc we need to pass a callbackfunction and not the invokation (in the routes)
     if (!roles.includes(req.user.role)) {
       throw new UnauthenticatedError(
         "You are not authorized to access this route."
