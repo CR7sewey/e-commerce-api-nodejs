@@ -1,6 +1,7 @@
 const User = require("../models/User");
 const { StatusCodes } = require("http-status-codes");
 const BadRequest = require("../errors/bad-request");
+const { generateToken } = require("../utils/jwt");
 
 const register = async (req, res) => {
   const { name, email, password } = req.body;
@@ -15,10 +16,9 @@ const register = async (req, res) => {
   const role = isFirstAcc ? "admin" : "user";
 
   const user = await User.create({ name, email, password, role }); // not ...req.body to not pass directly the role if inserted in postman!
-  const token = user.generateToken();
-  return res
-    .status(StatusCodes.CREATED)
-    .json({ user: { name, id: user._id, role: user.role }, token });
+  const userToken = { name, id: user._id, role: user.role };
+  const token = generateToken({ user: userToken });
+  return res.status(StatusCodes.CREATED).json({ user: userToken, token });
 };
 
 const login = async (req, res) => {

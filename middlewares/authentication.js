@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken");
 const UnauthenticatedError = require("../errors/unauthenticated");
 const User = require("../models/User");
+const { verifyToken } = require("../utils/jwt");
 require("dotenv").config();
 
 const tokenExists = async (req, res, next) => {
@@ -13,7 +14,7 @@ const tokenExists = async (req, res, next) => {
     throw new UnauthenticatedError("You need to log in to access this page!"); // noy logged in
   }
   try {
-    const dados = jwt.verify(token, process.env.TOKEN_SECRET_KEY);
+    const dados = verifyToken({ token });
     const user = await User.findOnde({
       _id: dados.id,
       name: dados.name,
