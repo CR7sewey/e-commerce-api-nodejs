@@ -40,26 +40,16 @@ const tokenExists = async (req, res, next) => {
   }
 };
 
-const authorizePermissions = async (req, res, next) => {
-  let token = req.signedCookies.token;
-  const { role } = verifyToken({ token });
-  if (role !== "admin") {
-    throw new UnauthenticatedError(
-      "You are not authorized to access this route."
-    );
-  }
-  next();
-
-  /**
-   * return (req, res, next) => {
+const authorizePermissions = (...roles) => {
+  console.log(roles);
+  return async (req, res, next) => {
     if (!roles.includes(req.user.role)) {
-      throw new CustomError.UnauthorizedError(
-        'Unauthorized to access this route'
+      throw new UnauthenticatedError(
+        "You are not authorized to access this route."
       );
     }
     next();
   };
-   */
 };
 
 module.exports = { tokenExists, authorizePermissions };
