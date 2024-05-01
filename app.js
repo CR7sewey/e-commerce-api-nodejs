@@ -26,7 +26,6 @@ app.use(cookie_parser(process.env.COOKIE_SECRET_KEY));
 app.use("/api/v1/auth", routerAuth);
 
 app.get("/", (req, res) => {
-  console.log(req.cookies);
   res.send("E-commerce Project");
 });
 
