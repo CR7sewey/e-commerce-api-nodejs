@@ -124,3 +124,19 @@
 
 #### Authenticate User Setup
 - just refactoring
+
+### Just a note to remember some forgotten js things
+function ola({ ...oi }) {
+  console.log(oi);
+}
+function ola2(...oi) {
+  console.log(oi);
+}
+
+ola({ oi: { a: 1, b: 2 }, a: 1 });              -> { oi: { a: 1, b: 2 }, a: 1 }
+ola2({ oi: { a: 1, b: 2 }, a: 1 }, 1, "ola");   -> [ { oi: { a: 1, b: 2 }, a: 1 }, 1, "ola" ]
+
+#### ShowCurrentUser
+
+- [] get user from req
+- [] send response with user
