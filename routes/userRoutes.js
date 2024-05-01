@@ -9,5 +9,6 @@ const {
 } = require("../controllers/userController");
 
 router.get("/", getAllUsers);
+router.get("/:id", getSingleUser);
 
 module.exports = router;

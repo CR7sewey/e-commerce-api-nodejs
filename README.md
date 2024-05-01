@@ -115,3 +115,9 @@
 - [] import userRoutes as routerUser in the app.js
 - [] import tokenExists middleware in the app.js
 - [] setup app.use('/api/v1/users', tokenExists, routerUser)
+
+#### GetAllUsers and GetSingleUser
+
+- [] Get all users where role is 'user' and remove password
+- [] Get Single User where id matches id param and remove password
+- [] If no user 404
