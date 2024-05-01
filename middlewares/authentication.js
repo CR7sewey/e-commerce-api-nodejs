@@ -21,6 +21,7 @@ const tokenExists = async (req, res, next) => {
   }
 
   try {
+    console.log("aqui aqui aqui");
     const dados = verifyToken({ token });
     const user = await User.findOne({
       _id: dados.id,

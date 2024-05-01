@@ -140,3 +140,20 @@ ola2({ oi: { a: 1, b: 2 }, a: 1 }, 1, "ola");   -> [ { oi: { a: 1, b: 2 }, a: 1 
 
 - [] get user from req
 - [] send response with user
+
+#### UpdateUserPassword
+
+- [] almost identical to login user
+- [] add authenticateUser middleware in the route
+- [] check for oldPassword and newPassword in the body
+- [] if one missing 400
+- [] look for user with req.user.userId
+- [] check if oldPassword matches with user.comparePassword
+- [] if no match 401
+- [] if everything good set user.password equal to newPassword
+- [] await user.save()
+
+- Note: till this moment, considering my tests, there is no problem with the 
+previously generated token (bcs only contains id, name and role); also for now
+there is no a problem with req.user saved in the login, bcs in every route a the
+req.user is updated considering the token (authtentication!) 

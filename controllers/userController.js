@@ -39,7 +39,25 @@ const updateUser = async (req, res) => {
 };
 
 const updateUserPassword = async (req, res) => {
-  return res.send("Users 5");
+  const { oldPassword, newPassword } = req.body;
+  if (!oldPassword || !newPassword) {
+    throw new BadRequest("You need to provide a password.");
+  }
+
+  const user = await User.findOne({ _id: req.user.id });
+  //Verify old Password
+  if (!(await user.validatePassword(oldPassword))) {
+    throw new UnauthenticatedError("Old password is wrong.");
+  }
+
+  if (oldPassword === newPassword) {
+    throw new BadRequest("New password cannot be the same as the old one.");
+  }
+
+  user.password = newPassword;
+  await user.save();
+
+  res.status(StatusCodes.OK).json({ msg: "Success! Password Updated." });
 };
 
 module.exports = {
