@@ -164,3 +164,11 @@ req.user is updated considering the token (authtentication!)
 - [] setup a function that accepts user object and returns userToken object
 - [] export as default
 - [] setup all the correct imports/exports and refactor existing code
+
+#### updateUser with User.findOneAndUpdate()
+
+- [] add authenticateUser middleware in the route
+- [] check for name and email in the body
+- [] if one is missing, send 400 (optional)
+- [] use findOneAndUpdate()
+- [] create token user, attachCookiesToResponse and send back the tokenUser

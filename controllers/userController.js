@@ -2,6 +2,8 @@ const User = require("../models/User");
 const { StatusCodes } = require("http-status-codes");
 const BadRequest = require("../errors/bad-request");
 const NotFound = require("../errors/not-found");
+const { generateToken, attachCookiesToResponse } = require("../utils/jwt");
+const createTokenUser = require("../utils/createTokenUser");
 
 const UnauthenticatedError = require("../errors/unauthenticated");
 
@@ -35,7 +37,28 @@ const showCurrentUser = async (req, res) => {
 };
 
 const updateUser = async (req, res) => {
-  return res.send("Users 4");
+  const { name, email } = req.body;
+  if (!name || !email) {
+    throw new BadRequest("One item is missing.");
+  }
+
+  const user = await User.findOneAndUpdate(
+    { _id: req.user.id },
+    { name, email },
+    {
+      new: true,
+      runValidators: true,
+    }
+  );
+  if (!user) {
+    throw new UnauthenticatedError("Not allowed!");
+  }
+
+  const userToken = createTokenUser(user);
+  const token = generateToken({ user: userToken });
+  attachCookiesToResponse({ res, token });
+
+  return res.status(StatusCodes.OK).json({ user: userToken });
 };
 
 const updateUserPassword = async (req, res) => {
