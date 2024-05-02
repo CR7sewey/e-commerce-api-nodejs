@@ -3,6 +3,7 @@ const { StatusCodes } = require("http-status-codes");
 const BadRequest = require("../errors/bad-request");
 const UnauthenticatedError = require("../errors/unauthenticated");
 const { generateToken, attachCookiesToResponse } = require("../utils/jwt");
+const createTokenUser = require("../utils/createTokenUser");
 
 const register = async (req, res) => {
   const { name, email, password } = req.body;
@@ -17,7 +18,7 @@ const register = async (req, res) => {
   const role = isFirstAcc ? "admin" : "user";
 
   const user = await User.create({ name, email, password, role }); // not ...req.body to not pass directly the role if inserted in postman!
-  const userToken = { name, id: user._id, role: user.role };
+  const userToken = createTokenUser(user);
 
   const token = generateToken({ user: userToken });
   attachCookiesToResponse({ res, token });
@@ -43,7 +44,7 @@ const login = async (req, res) => {
     throw new UnauthenticatedError("Invalid Credentials!");
   }
 
-  const userToken = { name: user.name, id: user._id, role: user.role };
+  const userToken = createTokenUser(user);
 
   const token = generateToken({ user: userToken });
   attachCookiesToResponse({ res, token });

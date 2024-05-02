@@ -157,3 +157,10 @@ ola2({ oi: { a: 1, b: 2 }, a: 1 }, 1, "ola");   -> [ { oi: { a: 1, b: 2 }, a: 1 
 previously generated token (bcs only contains id, name and role); also for now
 there is no a problem with req.user saved in the login, bcs in every route a the
 req.user is updated considering the token (authtentication!) 
+
+#### createTokenUser in Utils
+
+- [] create a file in utils (createTokenUser)
+- [] setup a function that accepts user object and returns userToken object
+- [] export as default
+- [] setup all the correct imports/exports and refactor existing code
