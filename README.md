@@ -181,3 +181,22 @@ Basically, this checkPermissions function is going to rule who can getUsers. Bas
 it stands we from getSingleUser controller can get any other user ('user': role)
 I dont want that, the user with role: 'user' only should have access to their own info!
 If admin, can access all users.
+
+#### Product Model
+
+- [] create Product.js in models folder
+- [] create Schema
+- [] name : {type:String}
+- [] price: {type:Number}
+- [] description: {type:String}
+- [] image: {type:String}
+- [] category: {type:String}
+- [] company: {type:String}
+- [] colors: {type:[]}
+- [] featured: {type:Boolean}
+- [] freeShipping: {type:Boolean}
+- [] inventory:{type:Number}
+- [] averageRating:{type:Number}
+- [] user
+- [] set timestamps
+- [] export Product model
