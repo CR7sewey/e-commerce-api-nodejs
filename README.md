@@ -172,3 +172,6 @@ req.user is updated considering the token (authtentication!)
 - [] if one is missing, send 400 (optional)
 - [] use findOneAndUpdate()
 - [] create token user, attachCookiesToResponse and send back the tokenUser
+
+- note: Could do differently, with user.name = name and user.email = email and
+then await user.save() - check controller 

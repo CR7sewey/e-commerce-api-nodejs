@@ -41,7 +41,7 @@ const updateUser = async (req, res) => {
   if (!name || !email) {
     throw new BadRequest("One item is missing.");
   }
-
+  /*
   const user = await User.findOneAndUpdate(
     { _id: req.user.id },
     { name, email },
@@ -49,10 +49,14 @@ const updateUser = async (req, res) => {
       new: true,
       runValidators: true,
     }
-  );
+  );*/
+  const user = await User.findOne({ _id: req.user.id });
   if (!user) {
     throw new UnauthenticatedError("Not allowed!");
   }
+  user.email = email;
+  user.name = name;
+  await user.save(); // note that here we pass through password generation, so important to have the this.isModified condition in the model!
 
   const userToken = createTokenUser(user);
   const token = generateToken({ user: userToken });
