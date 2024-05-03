@@ -4,6 +4,7 @@ const BadRequest = require("../errors/bad-request");
 const NotFound = require("../errors/not-found");
 const { generateToken, attachCookiesToResponse } = require("../utils/jwt");
 const createTokenUser = require("../utils/createTokenUser");
+const checkPermissions = require("../utils/checkPermissions");
 
 const UnauthenticatedError = require("../errors/unauthenticated");
 
@@ -22,12 +23,11 @@ const getSingleUser = async (req, res) => {
     throw new BadRequest("You are not authorized to access this route.");
   }*/
   const { id } = req.params;
-  const user = await User.findOne({ role: "user", _id: id }).select(
-    "-password"
-  );
+  const user = await User.findOne({ _id: id }).select("-password");
   if (!user) {
     throw new NotFound("User does not exists."); // or not allowed if admin
   }
+  checkPermissions(req.user, user);
   return res.status(StatusCodes.OK).json({ user });
 };
 

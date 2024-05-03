@@ -175,3 +175,9 @@ req.user is updated considering the token (authtentication!)
 
 - note: Could do differently, with user.name = name and user.email = email and
 then await user.save() - check controller 
+
+#### Setup and Apply checkPermissions()
+Basically, this checkPermissions function is going to rule who can getUsers. Basically, as
+it stands we from getSingleUser controller can get any other user ('user': role)
+I dont want that, the user with role: 'user' only should have access to their own info!
+If admin, can access all users.
