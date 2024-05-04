@@ -12,6 +12,7 @@ const cookie_parser = require("cookie-parser");
 // ROUTERS
 const routerAuth = require("./routes/authRoutes");
 const routerUser = require("./routes/userRoutes");
+const routerProduct = require("./routes/productRoutes");
 
 // Middlewares
 const errorHandlerMiddleware = require("./middlewares/error-handler");
@@ -27,6 +28,7 @@ app.use(cookie_parser(process.env.COOKIE_SECRET_KEY));
 
 app.use("/api/v1/auth", routerAuth);
 app.use("/api/v1/users", routerUser);
+app.use("/api/v1/products", routerProduct);
 
 app.get("/", (req, res) => {
   res.send("E-commerce Project");
