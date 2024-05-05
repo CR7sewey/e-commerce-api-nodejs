@@ -221,3 +221,17 @@ If admin, can access all users.
 - [] create user property on req.body and set it equal to userId (req.user)
 - [] pass req.body into Product.create
 - [] send back the product
+
+#### Remaining Controllers (apart from uploadImage)
+
+- [] getAllProducts  // TODO: PAGINATION AND FILTERING
+- [] getSingleProduct
+- [] updateProduct
+- [] deleteProduct
+- [] role 'admin' already checked (routes)!
+
+- NOTE: for update and delete controllers, any admin user can update or delete a product,
+as it stands. However, if the page has more than one, probably I would change it
+and only allow changes on products createdBy a specific user. For that, since
+the user is saved within the product and the actual user is saved on cookies,
+we would only need to {user: req.user._id}!
