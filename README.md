@@ -257,3 +257,15 @@ cloudinary.config({
   api_secret: process.env.CLOUD_API_SECRET,
 }); 
 ! TO CONFIG CLOUD - of course for that you need to create an account !
+
+#### Review Model
+
+- [] create Review.js in models folder
+- [] create Schema
+- [] rating : {type:Number}
+- [] title: {type:String}
+- [] comment: {type:String}
+- [] user
+- [] product
+- [] set timestamps
+- [] export Review model
