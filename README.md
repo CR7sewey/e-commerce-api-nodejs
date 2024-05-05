@@ -282,3 +282,9 @@ cloudinary.config({
 - [] typical REST setup
 - [] import reviewRoutes as reviewRouter in the app.js
 - [] setup app.use('/api/v1/reviews', reviewRouter)
+
+#### Create Review
+
+- [] check for product in the req.body
+- [] attach user property (set it equal to req.user.userId) on to req.body
+- [] create review
