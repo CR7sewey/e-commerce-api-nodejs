@@ -2,6 +2,7 @@ const BadRequest = require("../errors/bad-request");
 const NotFound = require("../errors/not-found");
 const Product = require("../models/Product");
 const { StatusCodes } = require("http-status-codes");
+const path = require("path");
 
 const getAllProducts = async (req, res) => {
   // TODO: PAGINATION AND FILTERING
@@ -69,8 +70,44 @@ const deleteProduct = async (req, res) => {
 };
 
 const uploadImage = async (req, res) => {
-  res.send("product 6");
+  if (!req.files) {
+    throw new BadRequest("You need to introduce a file!");
+  }
+  const productImage = req.files.image;
+  if (!productImage.mimetype.startsWith("image")) {
+    throw new BadRequest("You need to introduce a image!");
+  }
+  if (productImage.size > 1024 * 1024) {
+    throw new BadRequest("You need to introduce a smaller image!");
+  }
+
+  const imagePath = path.join(
+    __dirname,
+    "../public/uploads/" + `${productImage.name}`
+  );
+  await productImage.mv(imagePath);
+  return res
+    .status(StatusCodes.OK)
+    .json({ image: `/uploads/${productImage.name}` });
 };
+
+/*
+const uploadProductImage = async (req, res) => {
+  //console.log(req.files.image);
+  const result = await cloudinary.uploader.upload(
+    req.files.image.tempFilePath,
+    {
+      use_filename: true,
+      folder: "file-upload",
+    }
+  );
+
+  fs.unlinkSync(req.files.image.tempFilePath); // remove from tmp local folder
+
+  return res.status(StatusCodes.OK).json({ image: { src: result.secure_url } });
+};
+
+*/
 
 module.exports = {
   getAllProducts,

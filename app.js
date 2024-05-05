@@ -8,6 +8,7 @@ const app = express();
 // packages
 const morgan = require("morgan");
 const cookie_parser = require("cookie-parser");
+const fileUpload = require("express-fileupload");
 
 // ROUTERS
 const routerAuth = require("./routes/authRoutes");
@@ -24,6 +25,8 @@ const dbConnection = require("./db/connect");
 app.use(morgan("tiny")); // to check routes and http codes
 app.use(express.json()); // access to json data in req.body
 app.use(cookie_parser(process.env.COOKIE_SECRET_KEY));
+app.use(express.static("./public"));
+app.use(fileUpload());
 //
 
 app.use("/api/v1/auth", routerAuth);

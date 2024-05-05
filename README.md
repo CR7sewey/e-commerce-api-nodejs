@@ -235,3 +235,25 @@ as it stands. However, if the page has more than one, probably I would change it
 and only allow changes on products createdBy a specific user. For that, since
 the user is saved within the product and the actual user is saved on cookies,
 we would only need to {user: req.user._id}!
+
+#### Upload Image
+
+- [] images folder with two images
+- basically I've used express-fileupload package. The main idea is to a admin
+introduce an image (uploadImage controller), and then this image is stored locally
+in public/uploads folder. To test this, (bcs I dont have a frontend prepared) 
+establish the route in postman, and then, body -> form data -> key = image and type
+is file, and then choose an image. If this image pass all the validations, such as
+being an image and also the size, it should be stored in public/uploads.
+
+I could use some cloud plataform to perfomr this work, for 
+example cloudinary. For that, npm i cloudinary, and then the commented code in
+the Products controller. Also in app.js, app.use(fileUpload({ useTempFiles: true }));
+to store temp files. Also in app.js, 
+const cloudinary = require("cloudinary").v2; // use v2
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.CLOUD_API_KEY,
+  api_secret: process.env.CLOUD_API_SECRET,
+}); 
+! TO CONFIG CLOUD - of course for that you need to create an account !
