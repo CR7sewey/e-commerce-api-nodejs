@@ -215,3 +215,9 @@ If admin, can access all users.
 - [] router.route('/uploadImage').post(uploadImage)
 - [] import productRoutes as productRouter in the app.js
 - [] setup app.use('/api/v1/products', productRouter)
+
+#### Create Product
+
+- [] create user property on req.body and set it equal to userId (req.user)
+- [] pass req.body into Product.create
+- [] send back the product
