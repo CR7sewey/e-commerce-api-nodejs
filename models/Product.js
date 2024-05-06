@@ -65,7 +65,18 @@ const ProductSchema = mongoose.Schema(
   },
   {
     timestamps: true,
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true },
   }
 );
+
+// reviews for the product but not stored in db
+ProductSchema.virtual("reviews", {
+  ref: "Review",
+  localField: "_id",
+  foreignField: "product",
+  justOne: false,
+  //match: { rating: 5 }, // just shows rating 5
+});
 
 module.exports = mongoose.model("Product", ProductSchema);

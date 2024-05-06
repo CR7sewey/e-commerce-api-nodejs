@@ -6,7 +6,7 @@ const path = require("path");
 
 const getAllProducts = async (req, res) => {
   // TODO: PAGINATION AND FILTERING
-  const products = await Product.find({});
+  const products = await Product.find({}).populate("reviews");
   return res.status(StatusCodes.OK).json({ products, count: products.length });
 };
 const getSingleProduct = async (req, res) => {

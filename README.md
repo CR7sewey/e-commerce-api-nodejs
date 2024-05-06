@@ -317,3 +317,9 @@ cloudinary.config({
 
 Basically when the module refrences another one we can use populate method to
 see infos about that reference!
+
+#### Virtuals
+
+Does not exist in the model, which means not stored in the db. In this specific
+case, I've done it bcs I dont have anything in the product referencing the 
+reviews
