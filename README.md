@@ -323,3 +323,9 @@ see infos about that reference!
 Does not exist in the model, which means not stored in the db. In this specific
 case, I've done it bcs I dont have anything in the product referencing the 
 reviews
+
+#### Get Single Product Reviews
+To get something similar to what I've done before. Controller (reviews) and new route
+What's the advantage?? When using virtuals, I cant use the reviews to query, bcs
+it's a virtual (explained before - not really in the model). Doing this way, having a specific controller 
+for that from Review model, its possible!
