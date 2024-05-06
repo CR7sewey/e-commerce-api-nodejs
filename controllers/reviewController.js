@@ -50,7 +50,7 @@ const updateReview = async (req, res) => {
   if (!review) {
     throw new NotFound("This review doesnt exists.");
   }
-  checkPermissions(req.user, review.user);
+  checkPermissions(req.user, review.user); // just admin and the actual user review can update
 
   review.rating = req.body.rating || review.rating;
   review.comment = req.body.comment || review.comment;
@@ -67,7 +67,7 @@ const deleteReview = async (req, res) => {
   if (!review) {
     throw new NotFound("This review doesnt exists.");
   }
-  checkPermissions(req.user, review.user);
+  checkPermissions(req.user, review.user); // just admin and the actual user review can delete
   await Review.deleteOne({ _id: id });
   return res.status(StatusCodes.OK).json({ msg: "Success. Product removed!" });
 };
