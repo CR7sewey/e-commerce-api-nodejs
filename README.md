@@ -312,3 +312,8 @@ cloudinary.config({
 - [] set review properties equal to rating, title, comment
 - [] use await review.save()
 - [] send back 200
+
+#### Populate
+
+Basically when the module refrences another one we can use populate method to
+see infos about that reference!
