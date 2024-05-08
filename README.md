@@ -350,3 +350,19 @@ but the updating doesnt happen, only when you create a new review for the produc
 I think it's a problem of the Model.deleteOne({}). I tried wiht findOneAndDelete
 but the hook is not activated. So a solution could be in the controllers before
 deleting saving the productId and then do what calculateAverageRating is doing.
+
+#### Order Schema
+
+- [] create Order.js in models folder
+- [] create Schema
+- [] tax : {type:Number}
+- [] shippingFee: {type:Number}
+- [] subtotal: {type:Number}
+- [] total: {type:Number}
+- [] orderItems:[]
+- [] status:{type:String}
+- [] user
+- [] clientSecret:{type:String}
+- [] paymentId:{type:String}
+- [] set timestamps
+- [] export Order model
