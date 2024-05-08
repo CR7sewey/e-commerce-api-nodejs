@@ -39,7 +39,35 @@ ReviewSchema.index({ user: 1, product: 1 }, { unique: true });
 
 // call it on the schema
 ReviewSchema.statics.calculateAverageRating = async function (productId) {
-  console.log(productId);
+  const result = await this.aggregate([
+    {
+      $match: {
+        product: productId,
+      },
+    },
+    {
+      $group: {
+        _id: null,
+        averageRating: {
+          $avg: "$rating",
+        },
+        numOfReviews: {
+          $sum: 1,
+        },
+      },
+    },
+  ]);
+  try {
+    await this.model("Product").findOneAndUpdate(
+      { _id: productId },
+      {
+        averageRating: Math.ceil(result[0]?.averageRating || 0),
+        numOfReviews: Math.ceil(result[0]?.numOfReviews || 0),
+      }
+    );
+  } catch (e) {
+    console.log(e);
+  }
 };
 
 ReviewSchema.post("save", async function (next) {
