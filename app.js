@@ -15,6 +15,7 @@ const routerAuth = require("./routes/authRoutes");
 const routerUser = require("./routes/userRoutes");
 const routerProduct = require("./routes/productRoutes");
 const routerReview = require("./routes/reviewRoutes");
+const orderReview = require("./routes/orderRoutes");
 
 // Middlewares
 const errorHandlerMiddleware = require("./middlewares/error-handler");
@@ -34,6 +35,7 @@ app.use("/api/v1/auth", routerAuth);
 app.use("/api/v1/users", routerUser);
 app.use("/api/v1/products", routerProduct);
 app.use("/api/v1/reviews", routerReview);
+app.use("/api/v1/orders", orderReview);
 
 app.get("/", (req, res) => {
   res.send("E-commerce Project");
