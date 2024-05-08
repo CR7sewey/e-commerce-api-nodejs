@@ -366,3 +366,18 @@ deleting saving the productId and then do what calculateAverageRating is doing.
 - [] paymentId:{type:String}
 - [] set timestamps
 - [] export Order model
+
+#### Order Structure
+
+- [] add orderController file in controllers
+- [] export (getAllOrders, getSingleOrder, getCurrentUserOrders,
+  createOrder, updateOrder) functions
+- [] res.send('function name')
+- [] setup orderRoutes file in routes
+- [] import all controllers
+- [] authenticate user in all routes
+- [] getAllOrders admin only
+- [] typical REST setup
+- [] router.route('/showAllMyOrders').get(getCurrentUserOrders)
+- [] import orderRoutes as orderRouter in the app.js
+- [] setup app.use('/api/v1/orders', orderRouter)
