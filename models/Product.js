@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const Review = require("./Review");
 
 const ProductSchema = mongoose.Schema(
   {
@@ -77,6 +78,14 @@ ProductSchema.virtual("reviews", {
   foreignField: "product",
   justOne: false,
   //match: { rating: 5 }, // just shows rating 5
+});
+
+// middleware in the model before deleteOne action
+ProductSchema.pre("deleteOne", async function (next) {
+  // this.model referencing the Product
+  // Review the model we want to act on
+  // delete many is the action and the condition
+  await this.model("Review").deleteMany({ product: this._id });
 });
 
 module.exports = mongoose.model("Product", ProductSchema);

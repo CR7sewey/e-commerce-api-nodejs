@@ -329,3 +329,8 @@ To get something similar to what I've done before. Controller (reviews) and new 
 What's the advantage?? When using virtuals, I cant use the reviews to query, bcs
 it's a virtual (explained before - not really in the model). Doing this way, having a specific controller 
 for that from Review model, its possible!
+
+#### Remove All Reviews
+So, as it stands, if I remove a product, his review will still be stored in the db
+but the product associated is null. To solve this, (like a Cascade thing), setup a
+pre remove hook before removing the model!
