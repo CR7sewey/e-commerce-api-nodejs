@@ -334,3 +334,19 @@ for that from Review model, its possible!
 So, as it stands, if I remove a product, his review will still be stored in the db
 but the product associated is null. To solve this, (like a Cascade thing), setup a
 pre remove hook before removing the model!
+
+#### Aggregation Pipeline - Atlas and Code
+ --- TODO ---
+Aggregation to return a statistic value (in this case, the mean value of rating
+and hte number of ratings for each product). For that, I've done a static function
+on Review model to do this aggregation and then update the Product model associated
+with that review (similar to when I deleted all the reviews associated with an eliminated
+product). Then I defined to middlewares to do this change, and they will be triggered
+when saving (i.e. updating and creating new reviews) and when deleting. However,
+I dont know If it is from mongoose version or wtv, when deleting occurs an error
+saying:     "msg": "this.constructor.calculateAverageRating is not a function"
+Similar thing happens When eliminating a product for the reviews. There is the elimination,
+but the updating doesnt happen, only when you create a new review for the product.
+I think it's a problem of the Model.deleteOne({}). I tried wiht findOneAndDelete
+but the hook is not activated. So a solution could be in the controllers before
+deleting saving the productId and then do what calculateAverageRating is doing.
