@@ -4,6 +4,25 @@ const BadRequest = require("../errors/bad-request");
 const { StatusCodes } = require("http-status-codes");
 const NotFound = require("../errors/not-found");
 const checkPermissions = require("../utils/checkPermissions");
+// https://docs.stripe.com/payments/quickstart?client=html
+require("dotenv").config();
+const stripe = require("stripe")(process.env.STRIPE_API_KEY);
+
+const StripeAPI = async ({ total, currency }) => {
+  /* REAL
+  const paymentIntent = await stripe.paymentIntents.create({
+    amount: String(total),
+    currency: currency,
+    // In the latest version of the API, specifying the `automatic_payment_methods` parameter is optional because Stripe enables its functionality by default.
+    automatic_payment_methods: {
+      enabled: true,
+    },
+  });
+  */
+  // fake
+  const client_secret = "RandomValue";
+  return { client_secret, total };
+};
 
 const getAllOrders = async (req, res) => {
   res.send("orders 1");
@@ -51,9 +70,23 @@ const createOrder = async (req, res) => {
     orderItems = [...orderItems, { amount, name, price, image, product: _id }]; // adding orders (items)
     subTotal += price * amount;
   }
-  console.log(subTotal, orderItems);
+  const total = subTotal + tax + shippingFee;
+  // get client secret with stripe
 
-  return res.json({ msg: "order successfull" });
+  // Create a PaymentIntent with the order amount and currency
+  const paymentIntent = await StripeAPI({ total, currency: "usd" });
+  const order = await Order.create({
+    tax,
+    shippingFee,
+    subtotal: subTotal,
+    total,
+    orderItems,
+    user: req.user,
+    clientSecret: paymentIntent.client_secret,
+  });
+  res
+    .status(StatusCodes.CREATED)
+    .json({ order, clientSecret: paymentIntent.client_secret });
 };
 
 const updateOrder = async (req, res) => {
