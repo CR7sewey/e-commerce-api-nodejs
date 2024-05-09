@@ -411,3 +411,11 @@ deleting saving the productId and then do what calculateAverageRating is doing.
 - [] Export Postman Collection
 - [] docgen build -i fileName.json -o index.html
 - [] create index.html in public
+
+#### Security Packages
+
+- [] express-rate-limiter
+- [] helmet
+- [] xss-clean
+- [] express-mongo-sanitize
+- [] cors (cookies!!!!)
