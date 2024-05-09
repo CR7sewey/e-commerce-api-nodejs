@@ -385,3 +385,22 @@ deleting saving the productId and then do what calculateAverageRating is doing.
 #### Create Order
 
 - [] most complex order controller
+
+#### Get All Orders and Get Single Order
+
+- [] getAllOrders - admin only
+- [] getSingleOrder - checkPermissions
+
+#### Get Current User Orders
+
+- [] find orders where user is equal to req.user.userId
+
+#### Update Order
+
+- [] get order id
+- [] get paymentIntentId (req.body)
+- [] get order
+- [] if does not exist - 404
+- [] check permissions
+- [] set paymentIntentId and status as 'paid'
+- [] order.save()

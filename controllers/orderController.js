@@ -25,15 +25,26 @@ const StripeAPI = async ({ total, currency }) => {
 };
 
 const getAllOrders = async (req, res) => {
-  res.send("orders 1");
+  const orders = await Order.find({});
+  return res.status(StatusCodes.OK).json({ orders, count: orders.length });
 };
 
 const getSingleOrder = async (req, res) => {
-  res.send("orders 2");
+  const { id } = req.params;
+  const order = await Order.findOne({ _id: id });
+  if (!order) {
+    throw new NotFound("There is no order with this ID.");
+  }
+  checkPermissions(req.user, order.user);
+  return res.status(StatusCodes.OK).json({ order });
 };
 
 const getCurrentUserOrders = async (req, res) => {
-  res.send("orders 3");
+  const order = await Order.findOne({ user: req.user._id });
+  if (!order) {
+    throw new NotFound("There is no orders for this user.");
+  }
+  return res.status(StatusCodes.OK).json({ order });
 };
 
 const createOrder = async (req, res) => {
@@ -90,7 +101,20 @@ const createOrder = async (req, res) => {
 };
 
 const updateOrder = async (req, res) => {
-  res.send("orders 5");
+  const { id } = req.params;
+  const { paymentIntentId } = req.body;
+  const order = await Order.findOne({ _id: id });
+  if (!order) {
+    throw new NotFound("There is no order with this ID.");
+  }
+
+  checkPermissions(req.user, order.user);
+  order.paymentIntentId = paymentIntentId;
+  order.status = req.body.status;
+
+  await order.save();
+
+  return res.status(StatusCodes.OK).json({ order });
 };
 
 module.exports = {
